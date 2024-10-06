@@ -2,6 +2,14 @@ let video = document.querySelector("video");
 let recorderBtnCont = document.querySelector("record-btn-cont");
 let recorderBtn = document.getElementById("recordBtn");
 
+let captureBtn=document.getElementById("captureBtn");
+
+let timer=document.getElementById("timer");
+
+
+
+let timerId;
+
 console.log(recorderBtn);
 
 let recordFlag = false;
@@ -44,10 +52,12 @@ navigator.mediaDevices
 
       if (recordFlag) {
         recorder.start();
+        startTimer();
         console.log("Recording started");
         recorderBtn.classList.add("scale-record");
       } else {
         recorder.stop();
+        StopTimer();
         console.log("Recording stopped");
         recorderBtn.classList.remove("scale-record");
       }
@@ -55,4 +65,56 @@ navigator.mediaDevices
   })
   .catch((error) => {
     console.error("Error accessing media devices.", error);
+  });
+
+
+  let counter=0;//represents the total seconds
+  function startTimer()
+  {
+    timer.style.display = "block";
+    function displayTimer()
+    {
+
+      let totalSeconds=counter;
+      let hours=Number.parseInt(totalSeconds/3600);
+      totalSeconds=totalSeconds% 3600;
+      let minutes=Number.parseInt(totalSeconds/60);
+      totalSeconds=totalSeconds%60;
+      let seconds=totalSeconds;
+
+      hours = (hours<10)?`0${hours}`:hours;
+      minutes  (minutes<10)?`0${minutes}`:minutes;
+      seconds = (seconds<10)?`0${seconds}`:seconds;
+
+      timer.innerText=`${hours}:${minutes}:${seconds}`;
+
+
+
+      counter++;
+
+
+    }
+    timerId=setInterval(displayTimer, 1000);
+  }
+
+
+
+
+
+
+  function StopTimer()
+  {
+    clearInterval(timerId);
+        timer.style.display = "none";
+        timer.innerText="00:00";
+        counter=0;
+        timer.innerText="00:00:00";
+        console.log("Timer stopped");
+
+  }
+
+
+  captureBtn.addEventListener("click", () => {
+     captureBtn.classList.add("scale-capture");
+
   });

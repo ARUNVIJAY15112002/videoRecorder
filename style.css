@@ -59,7 +59,7 @@ video {
 
 .scale-capture {
   animation: scale-record;
-  animation-iteration-count: 10;
+  animation-iteration-count: 1;
   animation-duration: 1s;
 }
 
@@ -79,4 +79,21 @@ video {
   100% {
     transform: scale(1.1);
   }
+}
+
+.timer-counter
+{
+  height: 16rem;
+  width: 5rem;
+  position: absolute;
+  bottom: 10rem;
+  left: 5rem;
+  color: aqua;
+  font-size: 0.8rem;
+
+}
+
+.timer
+{
+  display:none;
 }
